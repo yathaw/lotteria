@@ -12,13 +12,20 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/report', 'ReportController@index')->name('report');
+Route::post('/search', 'ReportController@search')->name('search');
 
-Route::resource('/sale', 'SaleController');
-Route::resource('/order', 'OrderController');
+Route::resource('category', 'CategoryController');
+Route::resource('item', 'ItemController');
+Route::resource('staff', 'StaffController');
+
+
+Route::resource('sale', 'SaleController');
+Route::resource('order', 'OrderController');
 

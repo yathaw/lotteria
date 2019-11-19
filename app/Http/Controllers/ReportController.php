@@ -3,36 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Orderdetail;
-use App\Order;
-use App\Item;
-use App\Category;
-use Carbon\Carbon;
-
-
 use Illuminate\Support\Facades\DB;
 
-class HomeController extends Controller
-{
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+class ReportController extends Controller
+{
+
     public function index()
     {
-        $carbon = Carbon::now();
-        $today = $carbon->format('Y-m-d');
+        return view('report');
+    }
+
+    public function search(Request $request)
+    {
+        $startdate = request('startdate');
+        $enddate = request('enddate');
 
 
         $orders = DB::table("orders")
@@ -47,13 +32,15 @@ class HomeController extends Controller
                     ->join('orderdetails', 'orderdetails.order_id', '=', 'orders.id')
                     ->join('items', 'items.id', '=', 'orderdetails.item_id')
                     ->join('users', 'users.id', '=', 'orders.user_id')
-                    ->where("orderdate","=", $today)
+                    ->whereBetween('orderdate', [$startdate, $enddate])
                     ->groupBy("item_id")
-
-
                     ->get();
-        // dd($orders);
 
-        return view('home', compact('orders'));
+        return response()->json([
+            'searchresult'=>$orders
+        ]);
+        
     }
+
+    
 }

@@ -148,11 +148,12 @@
 
 							  	</tr>
 
-							  <tfoot id="print_div"></tfoot>
 
 						</table>
 					</div>
 				</div>
+
+				<div id="print_div"></div>
 
 			</div>
 		</div>
@@ -179,7 +180,7 @@
 			var price = $(this).data('price');
 			var qty = 1;
 
-			alert(id);
+			// alert(id);
 
 
 			var cart = localStorage.getItem('cart');

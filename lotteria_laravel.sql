@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 18, 2019 at 08:52 AM
+-- Generation Time: Nov 19, 2019 at 08:05 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.0
 
@@ -173,13 +173,47 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(15, '2014_10_12_000000_create_users_table', 1),
-(16, '2014_10_12_100000_create_password_resets_table', 1),
-(17, '2019_08_19_000000_create_failed_jobs_table', 1),
-(18, '2019_11_14_134803_create_categories_table', 1),
-(19, '2019_11_14_134920_create_items_table', 1),
-(20, '2019_11_14_134956_create_orders_table', 1),
-(21, '2019_11_14_135017_create_orderdetails_table', 1);
+(63, '2014_10_12_000000_create_users_table', 1),
+(64, '2014_10_12_100000_create_password_resets_table', 1),
+(65, '2019_08_19_000000_create_failed_jobs_table', 1),
+(66, '2019_11_14_134803_create_categories_table', 1),
+(67, '2019_11_14_134920_create_items_table', 1),
+(68, '2019_11_14_134956_create_orders_table', 1),
+(69, '2019_11_14_135017_create_orderdetails_table', 1),
+(70, '2019_11_18_135514_create_permission_tables', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `model_has_permissions`
+--
+
+CREATE TABLE `model_has_permissions` (
+  `permission_id` bigint(20) UNSIGNED NOT NULL,
+  `model_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `model_has_roles`
+--
+
+CREATE TABLE `model_has_roles` (
+  `role_id` bigint(20) UNSIGNED NOT NULL,
+  `model_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `model_has_roles`
+--
+
+INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
+(1, 'App\\User', 1),
+(2, 'App\\User', 2),
+(2, 'App\\User', 3);
 
 -- --------------------------------------------------------
 
@@ -202,12 +236,20 @@ CREATE TABLE `orderdetails` (
 --
 
 INSERT INTO `orderdetails` (`id`, `vocherno`, `qty`, `item_id`, `order_id`, `created_at`, `updated_at`) VALUES
-(1, '1574061507332', '1', 13, 1, '2019-11-18 00:57:03', '2019-11-18 00:57:03'),
-(2, '1574062175409', '1', 13, 2, '2019-11-18 00:59:36', '2019-11-18 00:59:36'),
-(3, '1574062209092', '1', 12, 3, '2019-11-18 01:00:10', '2019-11-18 01:00:10'),
-(4, '1574062264514', '1', 33, 4, '2019-11-18 01:01:05', '2019-11-18 01:01:05'),
-(5, '1574062264514', '1', 34, 4, '2019-11-18 01:01:05', '2019-11-18 01:01:05'),
-(6, '1574063206621', '1', 12, 5, '2019-11-18 01:16:49', '2019-11-18 01:16:49');
+(1, '1574184289957', '1', 33, 1, '2019-11-19 10:54:52', '2019-11-19 10:54:52'),
+(2, '1574184321616', '2', 38, 2, '2019-11-19 10:55:23', '2019-11-19 10:55:23'),
+(3, '1574184321616', '1', 36, 2, '2019-11-19 10:55:23', '2019-11-19 10:55:23'),
+(4, '1574184321616', '1', 12, 2, '2019-11-19 10:55:23', '2019-11-19 10:55:23'),
+(5, '1574184376926', '1', 1, 3, '2019-11-19 10:56:18', '2019-11-19 10:56:18'),
+(6, '1574184376926', '1', 59, 3, '2019-11-19 10:56:18', '2019-11-19 10:56:18'),
+(7, '1574184376926', '1', 67, 3, '2019-11-19 10:56:18', '2019-11-19 10:56:18'),
+(8, '1574184393798', '3', 52, 4, '2019-11-19 10:56:35', '2019-11-19 10:56:35'),
+(9, '1574184393798', '1', 55, 4, '2019-11-19 10:56:35', '2019-11-19 10:56:35'),
+(10, '1574184393798', '1', 33, 4, '2019-11-19 10:56:35', '2019-11-19 10:56:35'),
+(11, '1574184411365', '1', 30, 5, '2019-11-19 10:56:53', '2019-11-19 10:56:53'),
+(12, '1574184411365', '1', 32, 5, '2019-11-19 10:56:53', '2019-11-19 10:56:53'),
+(13, '1574184430105', '1', 58, 6, '2019-11-19 10:57:11', '2019-11-19 10:57:11'),
+(14, '1574184430105', '1', 26, 6, '2019-11-19 10:57:11', '2019-11-19 10:57:11');
 
 -- --------------------------------------------------------
 
@@ -220,6 +262,7 @@ CREATE TABLE `orders` (
   `orderdate` date NOT NULL,
   `vocherno` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `total` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -228,12 +271,13 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `orderdate`, `vocherno`, `total`, `created_at`, `updated_at`) VALUES
-(1, '2019-11-18', '1574061507332', '3900', '2019-11-18 00:57:03', '2019-11-18 00:57:03'),
-(2, '2019-11-18', '1574062175409', '3900', '2019-11-18 00:59:36', '2019-11-18 00:59:36'),
-(3, '2019-11-18', '1574062209092', '3800', '2019-11-18 01:00:10', '2019-11-18 01:00:10'),
-(4, '2019-11-18', '1574062264514', '6000', '2019-11-18 01:01:05', '2019-11-18 01:01:05'),
-(5, '2019-11-18', '1574063206621', '3800', '2019-11-18 01:16:49', '2019-11-18 01:16:49');
+INSERT INTO `orders` (`id`, `orderdate`, `vocherno`, `total`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, '2019-11-19', '1574184289957', '3100', 2, '2019-11-19 10:54:52', '2019-11-19 10:54:52'),
+(2, '2019-11-19', '1574184321616', '9400', 2, '2019-11-19 10:55:23', '2019-11-19 10:55:23'),
+(3, '2019-11-19', '1574184376926', '7500', 3, '2019-11-19 10:56:18', '2019-11-19 10:56:18'),
+(4, '2019-11-19', '1574184393798', '7300', 3, '2019-11-19 10:56:35', '2019-11-19 10:56:35'),
+(5, '2019-11-19', '1574184411365', '9800', 3, '2019-11-19 10:56:53', '2019-11-19 10:56:53'),
+(6, '2019-11-19', '1574184430105', '9900', 3, '2019-11-19 10:57:11', '2019-11-19 10:57:11');
 
 -- --------------------------------------------------------
 
@@ -250,13 +294,60 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `permissions`
+--
+
+CREATE TABLE `permissions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guard_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guard_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
+(1, 'admin', 'web', '2019-11-19 10:08:44', '2019-11-19 10:08:44'),
+(2, 'staff', 'web', '2019-11-19 10:08:44', '2019-11-19 10:08:44');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role_has_permissions`
+--
+
+CREATE TABLE `role_has_permissions` (
+  `permission_id` bigint(20) UNSIGNED NOT NULL,
+  `role_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `photo` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `photo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -270,9 +361,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `photo`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Boss', '/storage/user/boss.png', 'boss@gmail.com', NULL, '$2y$10$24uC9KgUVPMIvwAgjViq.uugmUxg.j6SeLwGaO9i/bgZlWJi9VJUC', NULL, NULL, NULL),
-(2, 'Staff', '/storage/user/staff.png', 'staff@gmail.com', NULL, '$2y$10$P1oWIweT3PG53ql8uXH6peCZBXPwhhC0El/aQYx.yz/7UHuJr6qDm', NULL, NULL, NULL),
-(3, '4QBcI1Z9l6', '/storage/user/staff.png', 'AWEUR3QEKk@gmail.com', NULL, '$2y$10$xn6jn6AxPn3QdgephnEdMeZCpkTmKyw7iqv7BWUeYHK9yI0y6F9gG', NULL, NULL, NULL);
+(1, 'Boss', '/storage/user/boss.png', 'boss@gmail.com', NULL, '$2y$10$q3PBeEoYd8zf5rDakR740eEXzwEwYLlWCwUN5WF7/mDUmgcZYj6/i', NULL, '2019-11-19 10:09:04', '2019-11-19 10:09:04'),
+(2, 'Staff One', '/storage/user/57302.png', 'staffone@gmail.com', NULL, '$2y$10$omoWE639n1/VEZ9P8n3J/ev1RO5QVZkfviFnhzdPVH8bUnKeHOaCq', NULL, '2019-11-19 10:54:14', '2019-11-19 10:54:14'),
+(3, 'Staff Two', '/storage/user/74329.png', 'stafftwo@gmail.com', NULL, '$2y$10$vehDVvqWcU52Cl4COoCyN.Zw4gFa1s0WQ1TLsi4g0GovnzkOd22H6', NULL, '2019-11-19 10:54:32', '2019-11-19 10:54:32');
 
 --
 -- Indexes for dumped tables
@@ -304,6 +395,20 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `model_has_permissions`
+--
+ALTER TABLE `model_has_permissions`
+  ADD PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
+  ADD KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`);
+
+--
+-- Indexes for table `model_has_roles`
+--
+ALTER TABLE `model_has_roles`
+  ADD PRIMARY KEY (`role_id`,`model_id`,`model_type`),
+  ADD KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`);
+
+--
 -- Indexes for table `orderdetails`
 --
 ALTER TABLE `orderdetails`
@@ -315,13 +420,33 @@ ALTER TABLE `orderdetails`
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `orders_user_id_foreign` (`user_id`);
 
 --
 -- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `permissions`
+--
+ALTER TABLE `permissions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `role_has_permissions`
+--
+ALTER TABLE `role_has_permissions`
+  ADD PRIMARY KEY (`permission_id`,`role_id`),
+  ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
 
 --
 -- Indexes for table `users`
@@ -356,19 +481,31 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `orderdetails`
 --
 ALTER TABLE `orderdetails`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `permissions`
+--
+ALTER TABLE `permissions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -387,11 +524,36 @@ ALTER TABLE `items`
   ADD CONSTRAINT `items_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`);
 
 --
+-- Constraints for table `model_has_permissions`
+--
+ALTER TABLE `model_has_permissions`
+  ADD CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `model_has_roles`
+--
+ALTER TABLE `model_has_roles`
+  ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `orderdetails`
 --
 ALTER TABLE `orderdetails`
   ADD CONSTRAINT `orderdetails_item_id_foreign` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`),
   ADD CONSTRAINT `orderdetails_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `role_has_permissions`
+--
+ALTER TABLE `role_has_permissions`
+  ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

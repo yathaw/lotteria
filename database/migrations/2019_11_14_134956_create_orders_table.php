@@ -18,6 +18,11 @@ class CreateOrdersTable extends Migration
             $table->date('orderdate');
             $table->string('vocherno');
             $table->string('total');
+
+            //user
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+
             $table->timestamps();
         });
     }
